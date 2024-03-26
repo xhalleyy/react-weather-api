@@ -11,14 +11,14 @@ const CurrentWeatherComponent = () => {
             <div className='flex justify-center items-center'>
                 <img src="" alt="" />
                 <div className='text-center pb-4 pt-1'>
-                    <p className='font-orbitron text-6xl xl:text-7xl pb-2'>62</p>
+                    <p className='font-orbitron text-6xl xl:text-7xl pb-2'>62°</p>
                     <p className='text-lg xl:text-2xl'>overcast clouds</p>
                 </div>
             </div>
         </div>
         <div className='col-span-4'>
-            <div>
-                <div>
+            <div className='grid grid-cols-2'>
+                <div className='col-span-1'>
                     
                 </div>
             </div>
