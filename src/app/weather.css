@@ -1,0 +1,8 @@
+.lightBG {
+    background: url(../assets/lightweatherBG.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.light-green {
+    background-color: rgba(200, 255, 229, .90);
+}
