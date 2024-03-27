@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -5,7 +7,7 @@ import { grey } from '@mui/material/colors';
 
 const SearchComponent = () => {
     return (
-        <div className='flex justify-end items-center py-8 pe-10 xl:pe-20'>
+        <div className='flex justify-end items-center pt-8 pb-5 pe-10 xl:pe-20'>
             <button className='bg-yellow-100 rounded-xl py-0.5 px-1.5 border h-10 border-black'>
                 <FavoriteBorderIcon fontSize="large" sx={{ color: grey[900] }} />
             </button>

@@ -15,6 +15,7 @@ const config: Config = {
       },
       fontFamily: {
         'orbitron': ['orbitron'],
+        'orbitron-reg': ['orbitron-reg'],
         'roadrage': ['roadrage'],
         'sometype-mono': ['sometype-mono'],
       },
