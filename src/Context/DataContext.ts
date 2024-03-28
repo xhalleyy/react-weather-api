@@ -1,6 +1,6 @@
 import { ICities, ICurrentWeather, IForecast } from '@/interfaces/interface';
 
-export {apiKey} from '@/hidekey';
+export {apiKey} from '@/app/hidekey';
 
 const currentWeatherApi = async (lat: number, lon: number, apiKey: string) => {
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`);
@@ -12,7 +12,7 @@ const currentWeatherApi = async (lat: number, lon: number, apiKey: string) => {
 const forecastApi = async (lat: number, lon: number, apiKey: string) => {
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`);
     const data: IForecast = await promise.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 

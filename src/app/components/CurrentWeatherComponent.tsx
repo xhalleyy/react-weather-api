@@ -3,12 +3,19 @@
 import React, { useEffect, useState } from 'react'
 import { IPosition, ICities, IForecast, ICurrentWeather } from '@/interfaces/interface'
 import {currentWeatherApi} from '@/Context/DataContext'
-import { apiKey } from '@/hidekey'
+import { apiKey } from '@/app/hidekey'
 
-const CurrentWeatherComponent = () => {
+type CurrentWeatherProp = {
+  latitude: number
+  setLatitude: React.Dispatch<React.SetStateAction<number>>
+  longitude: number
+  setLongitude: React.Dispatch<React.SetStateAction<number>>
+}
 
-  const [latitude, setLatitude] = useState<number>(0);
-  const [longitude, setLongitude] = useState<number>(0);
+const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude}: CurrentWeatherProp) => {
+
+  // const [latitude, setLatitude] = useState<number>(0);
+  // const [longitude, setLongitude] = useState<number>(0);
   const [location, setLocation] = useState<string>('CURRENT LOCATION')
   const [date, setDate] = useState<string>('');
   const [currentTemp, setCurrentTemp] = useState<string>('');
@@ -20,7 +27,7 @@ const CurrentWeatherComponent = () => {
 
   const days = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  const endings =['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+  const endings =['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st'];
 
 
   useEffect(() => {
@@ -79,7 +86,7 @@ const CurrentWeatherComponent = () => {
             </div>
           </div>
         </div>
-        <div className='col-span-4'>
+        <div className='col-span-4 text-black'>
           <div className='grid grid-cols-2 justify-center items-center'>
             <div className='col-span-1 flex flex-col justify-center items-center mb-5'>
               <p className='font-sometype-mono text-2xl mb-2'>Max. Temperature</p>
