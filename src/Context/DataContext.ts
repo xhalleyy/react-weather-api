@@ -18,7 +18,7 @@ const forecastApi = async (lat: number, lon: number, apiKey: string) => {
 
 const searchApi= async (city: string, apiKey: string) => {
     const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=${apiKey}`);
-    const data: ICities  = await promise.json();
+    const data: ICities[]  = await promise.json();
     console.log(data);
     return data;
 }

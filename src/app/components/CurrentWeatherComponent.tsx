@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { SetStateAction, useEffect, useState } from 'react'
 import { IPosition, ICities, IForecast, ICurrentWeather } from '@/interfaces/interface'
 import {currentWeatherApi} from '@/Context/DataContext'
 import { apiKey } from '@/app/hidekey'
@@ -10,12 +10,15 @@ type CurrentWeatherProp = {
   setLatitude: React.Dispatch<React.SetStateAction<number>>
   longitude: number
   setLongitude: React.Dispatch<React.SetStateAction<number>>
+  city: string
+  weatherCity: string | undefined
+  setWeatherCity: React.Dispatch<SetStateAction<string>>;
+  isFavorited: boolean
+  setIsFavorited: React.Dispatch<SetStateAction<boolean>>
 }
 
-const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude}: CurrentWeatherProp) => {
+const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude, city, weatherCity, setWeatherCity, isFavorited, setIsFavorited}: CurrentWeatherProp) => {
 
-  // const [latitude, setLatitude] = useState<number>(0);
-  // const [longitude, setLongitude] = useState<number>(0);
   const [location, setLocation] = useState<string>('CURRENT LOCATION')
   const [date, setDate] = useState<string>('');
   const [currentTemp, setCurrentTemp] = useState<string>('');
@@ -44,11 +47,19 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
 
     
   }, [])
+
+  useEffect(() => {
+    if (city) {
+      currentWeatherData(latitude, longitude, apiKey);
+      console.log(weatherCity)
+    }
+  }, [weatherCity]);
   
   const currentWeatherData = async (lat: number, lon: number, apiKey: string) => {
     try {
       const fetchedData = await currentWeatherApi(lat, lon, apiKey);
       setLocation(`${fetchedData.name.toUpperCase()}, ${fetchedData.sys.country}`)
+      setWeatherCity(`${fetchedData.name.toUpperCase()}, ${fetchedData.sys.country}`);
       setDate(getDate(fetchedData.dt));
       setCurrentTemp(`${Math.floor(fetchedData.main.temp)}°`)
       setDescription(fetchedData.weather[0].description);
