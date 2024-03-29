@@ -21,6 +21,7 @@ const FavoritesComponent = ({ cityName, likes, setLikes, city, setCity, setWeath
 
     const [favWeatherData, setfavWeatherData] = useState<ICurrentWeather>();
     const router = useRouter();
+    const iconSrc = favWeatherData?.weather[0]?.icon ? icons(favWeatherData.weather[0].icon) : '/default-image.png';
 
     useEffect(() => {
         const searchData = async (city: string, apiKey: string) => {
@@ -63,7 +64,7 @@ const FavoritesComponent = ({ cityName, likes, setLikes, city, setCity, setWeath
 
             <div onClick={changeCity} className='grid grid-cols-2 my-4 items-end justify-end text-start'>
                 <div className='col-span-1 flex justify-center'>
-                    <Image src={favWeatherData && icons(favWeatherData.weather[0].icon)} alt='' width={70} height={70} priority={false}/>
+                    <Image src={iconSrc} alt='' width={70} height={70} priority={false}/>
                 </div>
                 <p className='font-orbitron text-3xl md:text-5xl lg:text-4xl xl:5xl'>{favWeatherData && `${Math.floor(favWeatherData.main.temp)}°`}</p>
             </div>
