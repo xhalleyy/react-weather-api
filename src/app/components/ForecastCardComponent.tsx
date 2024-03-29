@@ -1,8 +1,8 @@
 'use client'
 
 import React, { SetStateAction, useEffect, useState } from 'react'
-import { apiKey } from '@/app/hidekey'
-import { forecastApi } from '@/Context/DataContext'
+// import { apiKey } from '@/app/hidekey'
+import { forecastApi, apiKey } from '@/Data/DataServices'
 import { getFormattedDate } from '@/utilies/formatDate'
 import Image from 'next/image'
 import { icons } from '@/utilies/icons'
@@ -21,7 +21,7 @@ const ForecastCardComponent = ({ date, high, low, icon, isFavorited, setIsFavori
   // const [date, setDate] = useState<string>('');
 
   return (
-    <div className='blueCard rounded-xl py-4 mx-2 xl:mx-5 flex flex-col justify-end items-center text-black px-5'>
+    <div className='blueCard rounded-xl mb-5 py-4 mx-2 xl:mx-5 flex flex-col justify-end items-center text-black px-5'>
       <p className=' font-sometype-mono text-xl text-center'>{getFormattedDate(date).split(',').at(0)}</p>
       <p className=' font-sometype-mono text-xl text-center'>{getFormattedDate(date).split(',').at(1)}</p>
       <Image src={icons(icon)} alt='' width={100} height={100} priority={false}/>

@@ -2,8 +2,8 @@
 
 import React, { SetStateAction, useEffect, useState } from 'react'
 import { IPosition, ICities, IForecast, ICurrentWeather } from '@/interfaces/interface'
-import {currentWeatherApi} from '@/Context/DataContext'
-import { apiKey } from '@/app/hidekey'
+import {currentWeatherApi, apiKey} from '@/Data/DataServices'
+// import { apiKey } from '@/app/hidekey'
 import Image from 'next/image'
 import { icons } from '@/utilies/icons'
 
@@ -39,7 +39,7 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
   useEffect(() => {
 
     const success = (position: IPosition) => {
-      currentWeatherData(position.coords.latitude, position.coords.longitude, apiKey);
+      currentWeatherData(position.coords.latitude, position.coords.longitude);
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     }
@@ -53,14 +53,14 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
 
   useEffect(() => {
     if (city) {
-      currentWeatherData(latitude, longitude, apiKey);
+      currentWeatherData(latitude, longitude);
       // console.log(weatherCity)
     }
   }, [weatherCity]);
   
-  const currentWeatherData = async (lat: number, lon: number, apiKey: string) => {
+  const currentWeatherData = async (lat: number, lon: number) => {
     try {
-      const fetchedData = await currentWeatherApi(lat, lon, apiKey);
+      const fetchedData = await currentWeatherApi(lat, lon);
       setLocation(`${fetchedData.name.toUpperCase()}, ${fetchedData.sys.country}`)
       setWeatherCity(`${fetchedData.name.toUpperCase()}, ${fetchedData.sys.country}`);
       setDate(getDate(fetchedData.dt));
@@ -87,13 +87,13 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
   }
 
   return (
-    <div className='px-20 xl:px-32'>
-      <h1 className='font-roadrage text-7xl 2xl:text-8xl text-black ps-4 mb-1'>{location}</h1>
+    <div className='px-10 md:px-20 xl:px-32'>
+      <h1 className='font-roadrage text-7xl 2xl:text-8xl text-black ps-4 mb-1 text-center md:text-start'>{location}</h1>
       <div className='light-green px-10 py-5 rounded-xl grid grid-cols-7 items-center'>
-        <div className='col-span-3 text-black font-sometype-mono border-r border-lime-600 pe-5 lg:pe-10'>
+        <div className='col-span-7 md:col-span-3 text-black font-sometype-mono border-0 md:border-r md:border-lime-600 pe-5 lg:pe-10'>
           <p className='text-3xl xl:text-4xl'>TODAY</p>
           <p className='text-2xl xl:text-3xl'>{date}</p>
-          <div className='flex justify-center items-end gap-2'>
+          <div className='flex flex-col lg:flex-row justify-center items-center lg:justify-center lg:items-end gap-2'>
             <Image src={weatherIcon} alt='' width={170} height={170} priority={true}/>
             <div className='text-center pb-4 pt-1'>
               <p className='font-orbitron text-6xl xl:text-7xl pb-2'>{currentTemp}</p>
@@ -101,13 +101,13 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
             </div>
           </div>
         </div>
-        <div className='col-span-4 text-black ps-5 lg:ps-10'>
-          <div className='grid grid-cols-2 justify-center items-center'>
-            <div className='col-span-1 flex flex-col justify-center items-center mb-5'>
+        <div className='col-span-7 md:col-span-4 text-black ps-5 lg:ps-10'>
+          <div className='grid md:grid-cols-1 lg:grid-cols-2 justify-center items-center'>
+            <div className='col-span-1 flex flex-col justify-center items-center mb-5 text-center'>
               <p className='font-sometype-mono text-2xl mb-2'>Max. Temperature</p>
               <p className='font-orbitron-reg text-3xl'>{maxTemp}</p>
             </div>
-            <div className='col-span-1 flex flex-col justify-center items-center mb-5'>
+            <div className='col-span-1 flex flex-col justify-center items-center mb-5 text-center'>
               <p className='font-sometype-mono text-2xl mb-2'>Min. Temperature</p>
               <p className='font-orbitron-reg text-3xl'>{minTemp}</p>
             </div>

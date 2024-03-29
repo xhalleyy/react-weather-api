@@ -5,12 +5,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { grey } from '@mui/material/colors';
-import { apiKey, currentWeatherApi, forecastApi } from '@/Context/DataContext';
-import { searchApi } from '@/Context/DataContext';
-import { ICities } from '@/interfaces/interface';
+import { searchApi } from '@/Data/DataServices';
 import Route, { useRouter } from 'next/navigation'
 import { getLocal, removeFromLocal, saveToLocal } from '@/utilies/LocalStorageFunctions';
-import Link from 'next/link';
+
 type SearchProp = {
     city: string
     setCity: React.Dispatch<SetStateAction<string>>
@@ -30,7 +28,7 @@ const SearchComponent = ({ city, setCity, setLatitude, setLongitude, setWeatherC
 
     const handleSearch = async () => {
         try {
-            const fetchedData = await searchApi(city, apiKey);
+            const fetchedData = await searchApi(city);
             setLatitude(fetchedData[0].lat);
             setLongitude(fetchedData[0].lon);
             setWeatherCity(city);
