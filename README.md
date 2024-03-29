@@ -1,8 +1,12 @@
 ### WEATHER API - NEXT.JS REBUILD
 
+
 -------Rebuild Weather App with Next.JS to display current weather data and 5 day forecast!---------
+
+
 -------Have the ability to Search and Favorite Cities---------
 
+vercel: https://react-weather-ik1svk575-halley-phams-projects.vercel.app/
 
 Halley Pham
 
