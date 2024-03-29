@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import SearchComponent from '../components/SearchComponent';
+import React, { SetStateAction, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import grey from '@mui/material/colors/grey';
@@ -9,11 +8,16 @@ import '../weather.css';
 import FavoritesComponent from '../components/FavoritesComponent';
 import { getLocal } from '@/utilies/LocalStorageFunctions';
 
-type Favorite = {
-    favoriteName: string
-}
+// type FavoritePageProp = {
+//     city: string
+//     setCity: React.Dispatch<SetStateAction<string>>
+//     setWeatherCity: React.Dispatch<SetStateAction<string>>
+// }
 
 const Favorites = () => {
+
+    const [city, setCity] = useState<string>('');
+    const [weatherCity, setWeatherCity] = useState<string>('');
 
     const [likes, setLikes] = useState<string[]>([]);
     const router = useRouter();
@@ -23,11 +27,7 @@ const Favorites = () => {
     }
 
     useEffect(() => {
-        let favCities: string[] = getLocal().map(city => {
-            return({
-                favoriteName: city
-            })
-        })
+        let favCities: string[]  = getLocal();
 
         setLikes(favCities);
     },[])
@@ -43,14 +43,11 @@ const Favorites = () => {
                     </button>
                 </div>
             </div>
-
             <div className=' px-5 md:px-20 lg:px-28 xl:px-40'>
                 <h1 className='font-roadrage text-6xl xl:text-7xl'>FAVORITES</h1>
 
                 <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 xl:gap-10 2xl:gap-14'>
-                {/* {
-          forecast.map((day, idx) => <FavoritesComponent key={idx} date={day.date} high={day.high} low={day.low} icon={day.icon} isFavorited={isFavorited} setIsFavorited={setIsFavorited}/>)
-        } */}
+                    {likes.map((city, idx )=> <FavoritesComponent key={idx} cityName={city} likes={likes} setLikes={setLikes} city={city} setCity={setCity} setWeatherCity={setWeatherCity}/>)}
                 </div>
             </div>
         </div>

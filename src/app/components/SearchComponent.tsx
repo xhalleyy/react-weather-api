@@ -10,7 +10,7 @@ import { searchApi } from '@/Context/DataContext';
 import { ICities } from '@/interfaces/interface';
 import Route, { useRouter } from 'next/navigation'
 import { getLocal, removeFromLocal, saveToLocal } from '@/utilies/LocalStorageFunctions';
-
+import Link from 'next/link';
 type SearchProp = {
     city: string
     setCity: React.Dispatch<SetStateAction<string>>
@@ -76,6 +76,7 @@ const SearchComponent = ({ city, setCity, setLatitude, setLongitude, setWeatherC
                     </button>
                 </div>
                 <div className='bg-yellow-100 rounded-xl py-0.5 px-3 border h-10 border-black'>
+                  
                     <button onClick={goToFavorites} className='text-black text-2xl font-orbitron'>
                         Favorites
                     </button>

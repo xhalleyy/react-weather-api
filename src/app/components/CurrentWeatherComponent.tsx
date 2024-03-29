@@ -4,6 +4,8 @@ import React, { SetStateAction, useEffect, useState } from 'react'
 import { IPosition, ICities, IForecast, ICurrentWeather } from '@/interfaces/interface'
 import {currentWeatherApi} from '@/Context/DataContext'
 import { apiKey } from '@/app/hidekey'
+import Image from 'next/image'
+import { icons } from '@/utilies/icons'
 
 type CurrentWeatherProp = {
   latitude: number
@@ -27,6 +29,7 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
   const [minTemp, setMinTemp] = useState<string>('');
   const [feelsLike, setFeelsLike] = useState<string>('');
   const [ humidity, setHumidity] = useState<string>('');
+  const [ weatherIcon, setWeatherIcon] = useState<string>('');
 
   const days = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -51,7 +54,7 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
   useEffect(() => {
     if (city) {
       currentWeatherData(latitude, longitude, apiKey);
-      console.log(weatherCity)
+      // console.log(weatherCity)
     }
   }, [weatherCity]);
   
@@ -67,6 +70,7 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
       setMinTemp(`${Math.floor(fetchedData.main.temp_min)}°`);
       setFeelsLike(`${Math.floor(fetchedData.main.feels_like)}°`)
       setHumidity(`${Math.floor(fetchedData.main.humidity)}%`)
+      setWeatherIcon(icons(fetchedData.weather[0].icon));
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
@@ -86,18 +90,18 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
     <div className='px-20 xl:px-32'>
       <h1 className='font-roadrage text-7xl 2xl:text-8xl text-black ps-4 mb-1'>{location}</h1>
       <div className='light-green px-10 py-5 rounded-xl grid grid-cols-7 items-center'>
-        <div className='col-span-3 text-black font-sometype-mono border-r border-lime-600'>
+        <div className='col-span-3 text-black font-sometype-mono border-r border-lime-600 pe-5 lg:pe-10'>
           <p className='text-3xl xl:text-4xl'>TODAY</p>
           <p className='text-2xl xl:text-3xl'>{date}</p>
-          <div className='flex justify-center items-center'>
-            <img src="" alt="" />
+          <div className='flex justify-center items-end gap-2'>
+            <Image src={weatherIcon} alt='' width={170} height={170} priority={true}/>
             <div className='text-center pb-4 pt-1'>
               <p className='font-orbitron text-6xl xl:text-7xl pb-2'>{currentTemp}</p>
               <p className='text-lg xl:text-2xl'>{description}</p>
             </div>
           </div>
         </div>
-        <div className='col-span-4 text-black'>
+        <div className='col-span-4 text-black ps-5 lg:ps-10'>
           <div className='grid grid-cols-2 justify-center items-center'>
             <div className='col-span-1 flex flex-col justify-center items-center mb-5'>
               <p className='font-sometype-mono text-2xl mb-2'>Max. Temperature</p>

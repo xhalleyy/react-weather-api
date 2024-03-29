@@ -49,6 +49,10 @@ export default function Home() {
     }
     ).filter((obj, index, array) => array.findIndex((o) => o.date === obj.date) === index).filter(x => x.date !== currentDate)
 
+    if(daysWeather.length === 6){
+      daysWeather.splice(5,1);
+    }
+
     console.log(daysWeather)
     setForecast(daysWeather)
     // setDate(getDate2(fetchedData.list[startNewDayIndex].dt_txt));
