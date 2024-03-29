@@ -6,7 +6,7 @@
 
 -------Have the ability to Search and Favorite Cities---------
 
-vercel: https://react-weather-ik1svk575-halley-phams-projects.vercel.app/
+vercel: https://react-weather-api-aych.vercel.app/
 
 Halley Pham
 
