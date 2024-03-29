@@ -22,72 +22,80 @@ type FavoritesProp = {
 
 const FavoritesComponent = ({ cityName, likes, setLikes, rerender, setRerender, city, setCity, setWeatherCity, index }: FavoritesProp) => {
 
-    const [favWeatherData, setfavWeatherData] = useState<ICurrentWeather>();
-    const router = useRouter();
-    const iconSrc = favWeatherData?.weather[0]?.icon ? icons(favWeatherData.weather[0].icon) : '/default-image.png';
+    // const [likes, setLikes] = useState<string[]>([]);
+    const [weatherData, setWeatherData] = useState<any[]>([]);
+    // const [rerender, setRerender] = useState<boolean>(true);
+    // const router = useRouter();
+    // const iconSrc = weather?.weather[0]?.icon ? icons(weather.weather[0].icon) : '/images/fewclouds.png';
 
     useEffect(() => {
-        const searchData = async (city: string) => {
-            const fetchedData = await searchApi(city);
-            // search api gets long and lat
-            // then run the other endpoint and chuck in fetchedData.lon, fetchData.lat
-            // then we can save that data into a useState Object and use that to render our components
-            const favData = await currentWeatherApi(fetchedData[0].lat, fetchedData[0].lon)
-            setfavWeatherData(favData);
-        }
-
-        searchData(cityName);
-    }, [])
+        let favCities: string[] = getLocal();
+        setLikes(favCities);
+    }, [rerender]);
 
     useEffect(() => {
-        console.log(favWeatherData)
-    }, [favWeatherData])
+        const fetchWeatherData = async () => {
+            const weatherDataList = await Promise.all(
+                likes.map(async (city) => {
+                    const searchResults = await searchApi(city);
+                    if (searchResults.length > 0) {
+                        const { lat, lon } = searchResults[0];
+                        const currentWeather = await currentWeatherApi(lat, lon);
+                        return { city, weather: currentWeather };
+                    }
+                    return null;
+                })
+            );
+            setWeatherData(weatherDataList.filter(Boolean)); // Filter out null values
+        };
 
-    const changeCity = () => {
-        router.push('/');
-        const newCity = `${favWeatherData?.name}, ${favWeatherData?.sys.country}`;
-        setCity(newCity);
-        setWeatherCity(newCity);
-      };
+        fetchWeatherData();
+    }, [likes]);
 
-    const handleRemoveFavorite = (cityToRemove: string) => {
+    const handleRemoveFavorite = async (cityToRemove: string) => {
         removeFromLocal(cityToRemove);
-        setRerender(!rerender);
-        // console.log(cityName)
+        setLikes((prevLikes) => prevLikes.filter((city) => city !== cityToRemove));
+        setRerender((prevRerender) => !prevRerender);
     };
 
     return (
-        <div className='rounded-xl light-green p-5 cursor-pointer flex flex-col justify-start'>
-            <div className='grid grid-cols-5 '>
-                <h1 className='col-span-4 font-sometype-mono text-2xl'>{`${favWeatherData?.name.toUpperCase()}, ${favWeatherData?.sys.country}`}</h1>
-                <div className='col-span-1 flex justify-end'>
-                    <RemoveCircleOutlinedIcon onClick={() => handleRemoveFavorite(cityName)}
-                        fontSize="large" sx={{ color: yellow[100], stroke: "#000000", strokeWidth: 0.5 }} className='cursor-pointer' />
-
+        <>
+            {weatherData.map(({ city, weather }, idx) => (
+                <div key={idx} className='rounded-xl light-green p-5 cursor-pointer flex flex-col justify-start'>
+                    <div className='grid grid-cols-5 '>
+                        <h1 className='col-span-4 font-sometype-mono text-2xl'>{city}</h1>
+                        <div className='col-span-1 flex justify-end'>
+                            <RemoveCircleOutlinedIcon
+                                onClick={() => handleRemoveFavorite(city)}
+                                fontSize='large'
+                                sx={{ color: yellow[100], stroke: '#000000', strokeWidth: 0.5 }}
+                                className='cursor-pointer'
+                            />
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-2 my-4 items-end justify-end text-start'>
+                        <div className='col-span-1 flex justify-center'>
+                            <Image src={icons(weather.weather[0].icon) || '/images/fewclouds.png'} alt='' width={70} height={70} priority={false} />
+                        </div>
+                        <p className='font-orbitron text-3xl md:text-5xl lg:text-4xl xl:5xl'>{weather && `${Math.floor(weather.main.temp)}°`}</p>
+                    </div>
+                    <div className='grid grid-cols-4 justify-center items-center'>
+                        <div className='col-span-1 text-center'>
+                            <p className='font-sometype-mono text-2xl'>LOW:</p>
+                            <p className='font-orbitron text-2xl lg:text-3xl'>{weather && `${Math.floor(weather.main.temp_min)}°`}</p>
+                        </div>
+                        <div className='col-span-2 inline-flex justify-center'>
+                            <Image src='/images/gradienttemp.png' alt='' width={75} height={75} />
+                        </div>
+                        <div className='col-span-1 text-center'>
+                            <p className='font-sometype-mono text-2xl'>HIGH:</p>
+                            <p className='font-orbitron text-2xl lg:text-3xl'>{weather && `${Math.floor(weather.main.temp_max)}°`}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div onClick={changeCity} className='grid grid-cols-2 my-4 items-end justify-end text-start'>
-                <div className='col-span-1 flex justify-center'>
-                    <Image src={iconSrc} alt='' width={70} height={70} priority={false}/>
-                </div>
-                <p className='font-orbitron text-3xl md:text-5xl lg:text-4xl xl:5xl'>{favWeatherData && `${Math.floor(favWeatherData.main.temp)}°`}</p>
-            </div>
-            <div className='grid grid-cols-4 justify-center items-center'>
-                <div className='col-span-1 text-center'>
-                    <p className='font-sometype-mono text-2xl'>LOW:</p>
-                    <p className='font-orbitron text-2xl lg:text-3xl'>{favWeatherData && `${Math.floor(favWeatherData.main.temp_min)}°`}</p>
-                </div>
-                <div className='col-span-2 inline-flex justify-center'>
-                    <Image src='/images/gradienttemp.png' alt='' width={75} height={75}/>
-                </div>
-                <div className='col-span-1 text-center'>
-                    <p className='font-sometype-mono text-2xl'>HIGH:</p>
-                    <p className='font-orbitron text-2xl lg:text-3xl'>{favWeatherData && `${Math.floor(favWeatherData.main.temp_max)}°`}</p>
-                </div>
-            </div>
-        </div>
-    )
+            ))}
+        </>
+    );
 }
 
 export default FavoritesComponent

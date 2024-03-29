@@ -22,11 +22,9 @@ const Favorites = () => {
     }
 
     useEffect(() => {
-        let favCities: string[]  = getLocal();
-
+        let favCities: string[] = getLocal();
         setLikes(favCities);
-        console.log(favCities)
-    },[rerender])
+    }, [rerender]);
 
     return (
         <div className="lightBG min-h-screen text-black">
@@ -43,7 +41,7 @@ const Favorites = () => {
                 <h1 className='font-roadrage text-6xl xl:text-7xl'>FAVORITES</h1>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 xl:gap-10 2xl:gap-14'>
-                    {likes.map((city, idx )=> <FavoritesComponent key={idx} index={idx} cityName={city} likes={likes} setLikes={setLikes} city={city} setCity={setCity} setWeatherCity={setWeatherCity} rerender={rerender} setRerender={setRerender}/>)}
+                    <FavoritesComponent key={1} index={1} cityName={city} likes={likes} setLikes={setLikes} city={city} setCity={setCity} setWeatherCity={setWeatherCity} rerender={rerender} setRerender={setRerender}/>
                 </div>
             </div>
         </div>
