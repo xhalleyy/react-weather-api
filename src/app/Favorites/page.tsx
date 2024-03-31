@@ -30,7 +30,7 @@ const Favorites = () => {
         <div className="lightBG min-h-screen text-black">
             <div className='flex justify-start items-center pt-8 pb-5 ps-3 md:ps-10 xl:ps-20'>
 
-                <div className='bg-yellow-100 rounded-xl py-0.5 px-3 border h-10 border-black'>
+                <div className='bg-yellow-100 rounded-xl py-0.5 px-3 border h-10 border-black hover:bg-yellow-400 active:bg-yellow-400'>
                     <button onClick={goBack} className='text-black text-2xl font-orbitron flex items-center'>
                         <ArrowBackIosIcon fontSize="medium" sx={{ color: grey[900] }}/>
                         Go Back

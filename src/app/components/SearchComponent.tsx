@@ -59,8 +59,8 @@ const SearchComponent = ({ city, setCity, setLatitude, setLongitude, setWeatherC
 
     return (
         <div>
-            <div className='flex justify-end items-center pt-8 pb-5 pe-10 xl:pe-20'>
-                <button onClick={handleLikes} className='bg-yellow-100 rounded-xl py-0.5 px-1.5 border h-10 border-black'>
+            <div className='flex flex-col gap-2 md:gap-0 md:flex-row justify-end items-center pt-8 pb-5 md:pe-10 xl:pe-20'>
+                <button onClick={handleLikes} className='bg-yellow-100 rounded-xl py-0.5 px-1.5 border h-10 border-black hover:bg-yellow-400 active:bg-yellow-400'>
                     {isFavorited ? (
                         <FavoriteIcon fontSize="large" sx={{ color: grey[900] }} />
                     ) : (
@@ -68,14 +68,14 @@ const SearchComponent = ({ city, setCity, setLatitude, setLongitude, setWeatherC
                     )}
                 </button>
                 <div className='rounded-xl px-4 flex flex-row items-center'>
-                    <input value={city} onChange={(e) => setCity(e.target.value)} type="text" placeholder='Search a City' className='h-10 w-72 xl:w-96 px-3 py-1 rounded-l-xl rounded-r-none font-orbitron text-2xl text-black border border-black' />
-                    <button className='bg-yellow-100 h-10 py-0.5 px-1.5 border border-black rounded-r-xl' onClick={handleSearch}>
+                    <input value={city} onChange={(e) => setCity(e.target.value)} type="text" placeholder='Search a City' className='h-10 w-64 md:w-72 xl:w-96 px-3 py-1 rounded-l-xl rounded-r-none font-orbitron text-2xl text-black border border-black' />
+                    <button className='bg-yellow-100 h-10 py-0.5 px-1.5 border border-black rounded-r-xl hover:bg-yellow-400 active:bg-yellow-400' onClick={handleSearch}>
                         <SearchOutlinedIcon fontSize="large" sx={{ color: grey[900] }} />
                     </button>
                 </div>
-                <div className='bg-yellow-100 rounded-xl py-0.5 px-3 border h-10 border-black'>
+                <div className='bg-yellow-100 rounded-xl py-0.5 px-3 border h-10 border-black hover:bg-yellow-400 active:bg-yellow-400'>
                   
-                    <button onClick={goToFavorites} className='text-black text-2xl font-orbitron'>
+                    <button onClick={goToFavorites} className='text-black text-2xl font-orbitron '>
                         Favorites
                     </button>
                 </div>

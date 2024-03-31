@@ -31,7 +31,7 @@ const ForecastCardComponent = ({ date, high, low, icon, isFavorited, setIsFavori
           <p className='font-orbitron text-2xl'>{`${Math.floor(low)}°`}</p>
         </div>
         <div className='col-span-2 inline-flex justify-center'>
-          <Image src='/images/gradienttemp.png' alt='' width={75} height={75}/>
+          <Image src='/images/gradienttemp.png' alt='' width={70} height={70}/>
         </div>
         <div className='col-span-1 text-center'>
         <p className='font-sometype-mono text-xl'>HIGH:</p>

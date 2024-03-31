@@ -101,7 +101,7 @@ const CurrentWeatherComponent = ({latitude, setLatitude, longitude, setLongitude
             </div>
           </div>
         </div>
-        <div className='col-span-7 md:col-span-4 text-black ps-5 lg:ps-10'>
+        <div className='col-span-7 md:col-span-4 text-black ps-0 md:ps-5 lg:ps-10'>
           <div className='grid md:grid-cols-1 lg:grid-cols-2 justify-center items-center'>
             <div className='col-span-1 flex flex-col justify-center items-center mb-5 text-center'>
               <p className='font-sometype-mono text-2xl mb-2'>Max. Temperature</p>
