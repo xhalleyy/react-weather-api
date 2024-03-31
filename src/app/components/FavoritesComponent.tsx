@@ -23,7 +23,7 @@ type FavoritesProp = {
 const FavoritesComponent = ({ cityName, likes, setLikes, rerender, setRerender, city, setCity, setWeatherCity, index }: FavoritesProp) => {
 
     const [weatherData, setWeatherData] = useState<any[]>([]);
-    // const router = useRouter();
+    const router = useRouter();
     // const iconSrc = weather?.weather[0]?.icon ? icons(weather.weather[0].icon) : '/images/fewclouds.png';
 
     useEffect(() => {
@@ -62,6 +62,10 @@ const FavoritesComponent = ({ cityName, likes, setLikes, rerender, setRerender, 
         setRerender((prevRerender) => !prevRerender);
     };
 
+    const handleBack = () => {
+        router.push('/')
+    }
+
     return (
         <>
             {weatherData.map(({ city, weather }, idx) => (
@@ -77,7 +81,7 @@ const FavoritesComponent = ({ cityName, likes, setLikes, rerender, setRerender, 
                             />
                         </div>
                     </div>
-                    <div className='grid grid-cols-2 my-4 items-end justify-end text-start'>
+                    <div onClick={handleBack} className='grid grid-cols-2 my-4 items-end justify-end text-start'>
                         <div className='col-span-1 flex justify-center'>
                             <Image src={icons(weather.weather[0].icon) || '/images/fewclouds.png'} alt='' width={70} height={70} priority={false} />
                         </div>
