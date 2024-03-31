@@ -2,7 +2,7 @@ import { ICities, ICurrentWeather, IForecast } from '@/interfaces/interface';
 
 // export {apiKey} from '@/app/hidekey';
 
-const apiKey: string | undefined = process.env.NEXT_PUBLIC_ACCESS_apiKey;
+const apiKey: string | undefined = process.env.NEXT_PUBLIC_apiKey;
 
 const currentWeatherApi = async (lat: number, lon: number) => {
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`);
