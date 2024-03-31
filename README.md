@@ -25,5 +25,7 @@ When the Favorites Button is clicked, it navigates to another page that renders 
 Wasn't able to get the Favorites to navigate back to home page with the favorited city populating.
 
 
-Peer Reviewer & Comments:
+Peer Reviewer & Comments: Elizabeth Rasuli
+
+The website is fully functional and also extremely nice! The design is amazing. Favorites list and search bar works and everything is responsive too. Great work!
 
